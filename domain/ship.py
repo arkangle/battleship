@@ -4,15 +4,28 @@ class Ship:
         self.Type = ShipType
         self.Origin = Origin
         self.Direction = Direction
+        self.hits = []
 
-    def getEndXY(self):
-        length = self.Type.getLength()
-        x_y = self.Origin.getXY()
-        end_x_y = self.Direction.getEndXY(x_y,length)
-        return end_x_y
+    def getType(self):
+        return self.Type
 
     def isHit(self,Coordinate):
         origin_x_y = self.Origin.getXY()
         try_x_y = Coordinate.getXY()
         length = self.Type.getLength()
         return self.Direction.inBetween(origin_x_y,length,try_x_y)
+
+    def shotAt(self,Coordinate):
+        if(self.isHit(Coordinate) and not self.hasHit(Coordinate)):
+                self.hits.append(Coordinate)
+                return True
+        return False
+
+    def getHits(self):
+        return self.hits
+
+    def hasHit(self,Coordinate):
+        return self.hits.count(Coordinate) == 1
+
+    def isSunk(self):
+        return self.Type.getLength() <= len(self.hits)
