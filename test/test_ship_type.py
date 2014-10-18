@@ -1,10 +1,10 @@
 
 import unittest
-from domain.ship import *
+from domain.ship_type import *
 
 class TestShip(unittest.TestCase):
     def setUp(self):
-        self.Ship = Ship("TestShip",1)
+        self.Ship = ShipType("TestShip",1)
     def testShipLength(self):
         self.assertEquals(1,self.Ship.getLength())
     def testShipName(self):
