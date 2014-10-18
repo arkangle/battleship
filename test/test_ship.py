@@ -58,6 +58,25 @@ class TestHorizShip(unittest.TestCase):
         self.assertIsInstance(Type,ShipType)
         self.assertEquals("HorizShip",Type.getName())
 
+    def testGetRange(self):
+        assert_x_ys = [(1,1),(2,1),(3,1),(4,1)]
+        x_ys = self.TestShip.getRange()
+        self.assertEquals(assert_x_ys,x_ys)
+
+    def testIsConflict(self):
+        Origin = Coordinate((1,0))
+        Dir = VerticalDirection()
+        Type = ShipType("VertShip",4)
+        OtherShip = Ship(Type,Origin,Dir)
+        self.assertTrue(self.TestShip.isConflict(OtherShip))
+
+    def testIsNotConflict(self):
+        Origin = Coordinate((0,0))
+        Dir = VerticalDirection()
+        Type = ShipType("VertShip",4)
+        OtherShip = Ship(Type,Origin,Dir)
+        self.assertFalse(self.TestShip.isConflict(OtherShip))
+
 class TestVertShip(unittest.TestCase):
     def setUp(self):
         Origin = Coordinate((1,1))
@@ -110,3 +129,23 @@ class TestVertShip(unittest.TestCase):
         Type = self.TestShip.getType()
         self.assertIsInstance(Type,ShipType)
         self.assertEquals("VertShip",Type.getName())
+
+    def testGetRange(self):
+        assert_x_ys = [(1,1),(1,2),(1,3),(1,4)]
+        x_ys = self.TestShip.getRange()
+        self.assertEquals(assert_x_ys,x_ys)
+
+    def testIsConflict(self):
+        Origin = Coordinate((0,1))
+        Dir = HorizontalDirection()
+        Type = ShipType("HorizShip",4)
+        OtherShip = Ship(Type,Origin,Dir)
+        self.assertTrue(self.TestShip.isConflict(OtherShip))
+
+    def testIsNotConflict(self):
+        Origin = Coordinate((0,0))
+        Dir = HorizontalDirection()
+        Type = ShipType("HorizShip",4)
+        OtherShip = Ship(Type,Origin,Dir)
+        self.assertFalse(self.TestShip.isConflict(OtherShip))
+
