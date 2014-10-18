@@ -1,6 +1,6 @@
 
 import unittest
-from grid.coordinate import Coordinate
+from coordinate import Coordinate
 
 class TestCoordinate(unittest.TestCase):
     def testXandY(self):
