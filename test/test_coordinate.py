@@ -1,6 +1,6 @@
 
 import unittest
-from coordinate import Coordinate
+from domain.coordinate import Coordinate
 
 class TestCoordinate(unittest.TestCase):
     def testXandY(self):

@@ -1,6 +1,6 @@
 
 import unittest
-from ship import *
+from domain.ship import *
 
 class TestShip(unittest.TestCase):
     def setUp(self):
