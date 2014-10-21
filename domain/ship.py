@@ -16,9 +16,10 @@ class Ship:
         return self.Direction.inBetween(origin_x_y,length,try_x_y)
 
     def shotAt(self,Coordinate):
-        if(self.isHit(Coordinate) and not self.hasHit(Coordinate)):
+        if(self.isHit(Coordinate)):
+            if(not self.hasHit(Coordinate)):
                 self.hits.append(Coordinate)
-                return True
+            return True
         return False
 
     def getHits(self):

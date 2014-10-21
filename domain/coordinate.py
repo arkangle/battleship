@@ -33,3 +33,9 @@ class Coordinate:
 
     def getRowColumn(self):
         return (self.getRow(),self.getColumn())
+
+    def __eq__(self,Other):
+        return self.x == Other.getX() and self.y == Other.getY()
+
+    def __ne(self,Other):
+        return not self.__eq__(Other)

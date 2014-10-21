@@ -36,6 +36,16 @@ class TestCoordinate(unittest.TestCase):
         coor = Coordinate.Factory(("J",10))
         self.assertEquals(("J",10),coor.getRowColumn())
 
+    def testEquality(self):
+        coor1 = Coordinate.Factory(("J",10))
+        coor2 = Coordinate((9,9))
+        self.assertTrue(coor1==coor2);
+
+    def testNotEquality(self):
+        coor1 = Coordinate.Factory(("J",10))
+        coor2 = Coordinate((1,9))
+        self.assertTrue(coor1!=coor2);
+
     def testFactoryA1(self):
         coor = Coordinate.Factory(("A",1))
         self.assertEquals(0,coor.getX())

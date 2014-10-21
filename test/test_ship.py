@@ -50,7 +50,7 @@ class TestHorizShip(unittest.TestCase):
         for x in range(1,4):
             self.TestShip.shotAt(Coordinate((x,1)))
             self.assertFalse(self.TestShip.isSunk())
-        self.TestShip.shotAt(Coordinate((x,1)))
+        self.TestShip.shotAt(Coordinate((4,1)))
         self.assertTrue(self.TestShip.isSunk())
 
     def testGetType(self):
@@ -106,11 +106,14 @@ class TestVertShip(unittest.TestCase):
         Coor = Coordinate((1,5))
         self.TestShip.shotAt(Coor)
         self.assertEquals(self.TestShip.getHits(),[])
-        Coor = Coordinate((1,4))
-        self.TestShip.shotAt(Coor)
-        self.assertEquals(self.TestShip.getHits(),[Coor])
-        self.TestShip.shotAt(Coor)
-        self.assertEquals(self.TestShip.getHits(),[Coor])
+        Coor1st = Coordinate((1,4))
+        self.TestShip.shotAt(Coor1st)
+        hits = self.TestShip.getHits()
+        self.assertEquals(1,len(hits))
+        Coor2nd = Coordinate((1,4))
+        self.TestShip.shotAt(Coor2nd)
+        hits = self.TestShip.getHits()
+        self.assertEquals(1,len(hits))
 
     def testHasHits(self):
         Coor = Coordinate((1,4))
@@ -122,8 +125,18 @@ class TestVertShip(unittest.TestCase):
         for y in range(1,4):
             self.TestShip.shotAt(Coordinate((1,y)))
             self.assertFalse(self.TestShip.isSunk())
-        self.TestShip.shotAt(Coordinate((1,y)))
+        self.TestShip.shotAt(Coordinate((1,4)))
         self.assertTrue(self.TestShip.isSunk())
+
+    def testIsNotSunkIfSame(self):
+        self.TestShip.shotAt(Coordinate((1,1)))
+        self.assertFalse(self.TestShip.isSunk())
+        self.TestShip.shotAt(Coordinate((1,1)))
+        self.assertFalse(self.TestShip.isSunk())
+        self.TestShip.shotAt(Coordinate((1,1)))
+        self.assertFalse(self.TestShip.isSunk())
+        self.TestShip.shotAt(Coordinate((1,1)))
+        self.assertFalse(self.TestShip.isSunk())
 
     def testGetType(self):
         Type = self.TestShip.getType()
