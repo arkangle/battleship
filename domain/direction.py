@@ -7,42 +7,37 @@ class Direction:
             return HorizontalDirection()
         elif(n == 'v'):
             return VerticalDirection()
+
     def getEndXY(self,x_y,length):
-        pass
+        list_x_y = list(x_y)
+        list_x_y[self.i_change] += length
+        return tuple(list_x_y)
+
     def inBetween(self,origin_x_y,length,try_x_y):
-        pass
-    def getRange(self,origin_x_y,length):
-        pass
+        if(origin_x_y[self.i_same] == try_x_y[self.i_same] and
+                try_x_y[self.i_change] >= origin_x_y[self.i_change] and
+                try_x_y[self.i_change] <= (origin_x_y[self.i_change]+length-1)):
+            return True
+        else:
+            return False
+
+    def getRange(self,x_y,length):
+        r = []
+        for change in range(x_y[self.i_change],x_y[self.i_change]+length):
+            list_x_y = [0,0]
+            list_x_y[self.i_change] = change
+            list_x_y[self.i_same] = x_y[self.i_same]
+            r.append(tuple(list_x_y))
+        return r
+
 
 class HorizontalDirection(Direction):
-    def getEndXY(self,x_y,length):
-        return (x_y[0]+length,x_y[1])
-
-    def inBetween(self,origin_x_y,length,try_x_y):
-        if(origin_x_y[1] == try_x_y[1] and try_x_y[0] >= origin_x_y[0] and try_x_y[0] <= (origin_x_y[0]+length-1)):
-            return True
-        else:
-            return False
-
-    def getRange(self,x_y,length):
-        r = []
-        for x in range(x_y[0],x_y[0]+length):
-            r.append((x,x_y[1]))
-        return r
+    def __init__(self):
+        self.i_change = 0
+        self.i_same = 1
 
 class VerticalDirection(Direction):
-    def getEndXY(self,x_y,length):
-        return (x_y[0],x_y[1]+length)
-
-    def inBetween(self,origin_x_y,length,try_x_y):
-        if(origin_x_y[0] == try_x_y[0] and try_x_y[1] >= origin_x_y[1] and try_x_y[1] <= (origin_x_y[1]+length-1)):
-            return True
-        else:
-            return False
-
-    def getRange(self,x_y,length):
-        r = []
-        for y in range(x_y[1],x_y[1]+length):
-            r.append((x_y[0],y))
-        return r
+    def __init__(self):
+        self.i_change = 1
+        self.i_same = 0
 
