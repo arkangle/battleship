@@ -31,14 +31,14 @@ class Ship:
     def isSunk(self):
         return self.Type.getLength() <= len(self.hits)
 
-    def getRange(self):
+    def getLocation(self):
         origin_x_y = self.Origin.getXY()
         length = self.Type.getLength()
         return self.Direction.getRange(origin_x_y,length)
 
     def isConflict(self,OtherShip):
-        r = OtherShip.getRange()
-        for x_y in self.getRange():
+        r = OtherShip.getLocation()
+        for x_y in self.getLocation():
             if(r.count(x_y)>0):
                 return True
         return False

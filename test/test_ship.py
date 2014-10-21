@@ -58,9 +58,9 @@ class TestHorizShip(unittest.TestCase):
         self.assertIsInstance(Type,ShipType)
         self.assertEquals("HorizShip",Type.getName())
 
-    def testGetRange(self):
+    def testGetLocation(self):
         assert_x_ys = [(1,1),(2,1),(3,1),(4,1)]
-        x_ys = self.TestShip.getRange()
+        x_ys = self.TestShip.getLocation()
         self.assertEquals(assert_x_ys,x_ys)
 
     def testIsConflict(self):
@@ -143,9 +143,9 @@ class TestVertShip(unittest.TestCase):
         self.assertIsInstance(Type,ShipType)
         self.assertEquals("VertShip",Type.getName())
 
-    def testGetRange(self):
+    def testGetLocation(self):
         assert_x_ys = [(1,1),(1,2),(1,3),(1,4)]
-        x_ys = self.TestShip.getRange()
+        x_ys = self.TestShip.getLocation()
         self.assertEquals(assert_x_ys,x_ys)
 
     def testIsConflict(self):
