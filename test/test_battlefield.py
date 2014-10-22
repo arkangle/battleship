@@ -49,6 +49,18 @@ class TestBattlefield(unittest.TestCase):
         Attempt = Coordinate((6,1))
         self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
 
+    def testGetMissed(self):
+        self.fillBattlefield()
+        Missed = []
+        Attempt = Coordinate((0,0))
+        Missed.append(Attempt)
+        self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
+        self.assertEquals(Missed,self.Battlefield.getMissed())
+        Attempt = Coordinate((9,9))
+        Missed.append(Attempt)
+        self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
+        self.assertEquals(Missed,self.Battlefield.getMissed())
+
     def testAreAllSunk(self):
         HTestShip = self.getGenericShip((1,1),"H","HorizShip",3)
         self.Battlefield.addShip(HTestShip)

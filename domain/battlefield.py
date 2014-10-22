@@ -26,3 +26,5 @@ class Battlefield:
                 return False
         return True
 
+    def getMissed(self):
+        return self.Missed
