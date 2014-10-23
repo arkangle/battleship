@@ -13,6 +13,17 @@ class TestPlayers(unittest.TestCase):
         Player = self.Players.getCurrentPlayer()
         self.assertEquals(Player,self.Player1)
 
+    def testOpponentPlayer(self):
+        Player = self.Players.getOpponentPlayer()
+        self.assertEquals(Player,self.Player2)
+
+    def testToggleBoolean(self):
+        boolean = 0
+        boolean = self.Players.toggleBoolean(boolean)
+        self.assertEquals(boolean,1)
+        boolean = self.Players.toggleBoolean(boolean)
+        self.assertEquals(boolean,0)
+
     def testToggleTurn(self):
         self.Players.toggleTurn()
         Player = self.Players.getCurrentPlayer()
