@@ -4,11 +4,18 @@ from domain.ship_type import *
 
 class TestShip(unittest.TestCase):
     def setUp(self):
-        self.Ship = ShipType("TestShip",1)
+        self.ShipType = ShipType("TestShip",1)
     def testShipLength(self):
-        self.assertEquals(1,self.Ship.getLength())
+        self.assertEquals(1,self.ShipType.getLength())
     def testShipName(self):
-        self.assertEquals("TestShip",self.Ship.getName())
+        self.assertEquals("TestShip",self.ShipType.getName())
+    def testEquality(self):
+        anotherShipType = ShipType("AnotherShip",1)
+        closeShipType = ShipType("TestShip",3)
+        sameShipType = ShipType("TestShip",1)
+        self.assertNotEquals(self.ShipType,anotherShipType)
+        self.assertNotEquals(self.ShipType,closeShipType)
+        self.assertEquals(self.ShipType,sameShipType)
 
 class TestBattleship(unittest.TestCase):
     def setUp(self):
