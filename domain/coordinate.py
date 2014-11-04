@@ -11,9 +11,9 @@ class Coordinate:
         self.y=x_y[1]
 
     @staticmethod
-    def Factory((row,column)):
-        y = Coordinate.rows.index(row)
-        x = Coordinate.columns.index(column)
+    def Factory(row_column):
+        y = Coordinate.rows.index(row_column[0])
+        x = Coordinate.columns.index(row_column[1])
         return Coordinate((x,y))
 
     def getX(self):

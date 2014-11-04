@@ -10,23 +10,23 @@ class TestTurn(unittest.TestCase):
 
     def testCurrentPlayer(self):
         Player = self.Turn.getCurrentPlayer()
-        self.assertEquals(Player,self.Player1)
+        self.assertEqual(Player,self.Player1)
 
     def testOpponentPlayer(self):
         Player = self.Turn.getOpponentPlayer()
-        self.assertEquals(Player,self.Player2)
+        self.assertEqual(Player,self.Player2)
 
     def testToggleBoolean(self):
         boolean = 0
         boolean = self.Turn.toggleBoolean(boolean)
-        self.assertEquals(boolean,1)
+        self.assertEqual(boolean,1)
         boolean = self.Turn.toggleBoolean(boolean)
-        self.assertEquals(boolean,0)
+        self.assertEqual(boolean,0)
 
     def testToggleTurn(self):
         self.Turn.toggleTurn()
         Player = self.Turn.getCurrentPlayer()
-        self.assertEquals(Player,self.Player2)
+        self.assertEqual(Player,self.Player2)
 
     def testRandomTurn(self):
         track = 0

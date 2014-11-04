@@ -23,22 +23,22 @@ class TestHorizShip(unittest.TestCase):
     def testShotAndHit(self):
         Coor = Coordinate((4,1))
         self.assertTrue(self.TestShip.shotAt(Coor))
-        self.assertEquals(self.TestShip.getHits(),[Coor])
+        self.assertEqual(self.TestShip.getHits(),[Coor])
 
     def testShotAndMiss(self):
         Coor = Coordinate((5,1))
         self.assertFalse(self.TestShip.shotAt(Coor))
-        self.assertEquals(self.TestShip.getHits(),[])
+        self.assertEqual(self.TestShip.getHits(),[])
 
     def testGetHits(self):
         Coor = Coordinate((5,1))
         self.TestShip.shotAt(Coor)
-        self.assertEquals(self.TestShip.getHits(),[])
+        self.assertEqual(self.TestShip.getHits(),[])
         Coor = Coordinate((4,1))
         self.TestShip.shotAt(Coor)
-        self.assertEquals(self.TestShip.getHits(),[Coor])
+        self.assertEqual(self.TestShip.getHits(),[Coor])
         self.TestShip.shotAt(Coor)
-        self.assertEquals(self.TestShip.getHits(),[Coor])
+        self.assertEqual(self.TestShip.getHits(),[Coor])
 
     def testHasHits(self):
         Coor = Coordinate((4,1))
@@ -56,12 +56,12 @@ class TestHorizShip(unittest.TestCase):
     def testGetType(self):
         Type = self.TestShip.getType()
         self.assertIsInstance(Type,ShipType)
-        self.assertEquals("HorizShip",Type.getName())
+        self.assertEqual("HorizShip",Type.getName())
 
     def testGetLocation(self):
         assert_x_ys = [(1,1),(2,1),(3,1),(4,1)]
         x_ys = self.TestShip.getLocation()
-        self.assertEquals(assert_x_ys,x_ys)
+        self.assertEqual(assert_x_ys,x_ys)
 
     def testIsConflict(self):
         Origin = Coordinate((1,0))
@@ -95,25 +95,25 @@ class TestVertShip(unittest.TestCase):
     def testShotAndHit(self):
         Coor = Coordinate((1,4))
         self.assertTrue(self.TestShip.shotAt(Coor))
-        self.assertEquals(self.TestShip.getHits(),[Coor])
+        self.assertEqual(self.TestShip.getHits(),[Coor])
 
     def testShotAndMiss(self):
         Coor = Coordinate((1,5))
         self.assertFalse(self.TestShip.shotAt(Coor))
-        self.assertEquals(self.TestShip.getHits(),[])
+        self.assertEqual(self.TestShip.getHits(),[])
 
     def testGetHits(self):
         Coor = Coordinate((1,5))
         self.TestShip.shotAt(Coor)
-        self.assertEquals(self.TestShip.getHits(),[])
+        self.assertEqual(self.TestShip.getHits(),[])
         Coor1st = Coordinate((1,4))
         self.TestShip.shotAt(Coor1st)
         hits = self.TestShip.getHits()
-        self.assertEquals(1,len(hits))
+        self.assertEqual(1,len(hits))
         Coor2nd = Coordinate((1,4))
         self.TestShip.shotAt(Coor2nd)
         hits = self.TestShip.getHits()
-        self.assertEquals(1,len(hits))
+        self.assertEqual(1,len(hits))
 
     def testHasHits(self):
         Coor = Coordinate((1,4))
@@ -141,12 +141,12 @@ class TestVertShip(unittest.TestCase):
     def testGetType(self):
         Type = self.TestShip.getType()
         self.assertIsInstance(Type,ShipType)
-        self.assertEquals("VertShip",Type.getName())
+        self.assertEqual("VertShip",Type.getName())
 
     def testGetLocation(self):
         assert_x_ys = [(1,1),(1,2),(1,3),(1,4)]
         x_ys = self.TestShip.getLocation()
-        self.assertEquals(assert_x_ys,x_ys)
+        self.assertEqual(assert_x_ys,x_ys)
 
     def testIsConflict(self):
         Origin = Coordinate((0,1))

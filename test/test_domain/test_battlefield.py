@@ -18,13 +18,13 @@ class TestBattlefield(unittest.TestCase):
         HTestShip = self.getGenericShip((1,1),"H","Horiz",4)
         self.Battlefield.addShip(HTestShip)
         VTestShip = self.getGenericShip((2,0),"V","Vert",4)
-        self.assertRaisesRegexp(ValueError,"Ship in the way",self.Battlefield.addShip,VTestShip)
+        self.assertRaisesRegex(ValueError,"Ship in the way",self.Battlefield.addShip,VTestShip)
 
     def testAddShipTypeUsed(self):
         HTestShip = self.getGenericShip((1,1),"H","Ship",4)
         self.Battlefield.addShip(HTestShip)
         VTestShip = self.getGenericShip((0,0),"V","Ship",4)
-        self.assertRaisesRegexp(ValueError,"Ship Type Already Used",self.Battlefield.addShip,VTestShip)
+        self.assertRaisesRegex(ValueError,"Ship Type Already Used",self.Battlefield.addShip,VTestShip)
 
     def testShotAtHit(self):
         self.fillBattlefield()
@@ -55,11 +55,11 @@ class TestBattlefield(unittest.TestCase):
         Attempt = Coordinate((0,0))
         Missed.append(Attempt)
         self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
-        self.assertEquals(Missed,self.Battlefield.getMissed())
+        self.assertEqual(Missed,self.Battlefield.getMissed())
         Attempt = Coordinate((9,9))
         Missed.append(Attempt)
         self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
-        self.assertEquals(Missed,self.Battlefield.getMissed())
+        self.assertEqual(Missed,self.Battlefield.getMissed())
 
     def testAreAllSunk(self):
         HTestShip = self.getGenericShip((1,1),"H","HorizShip",3)

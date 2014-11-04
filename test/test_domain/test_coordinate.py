@@ -5,36 +5,36 @@ from domain.coordinate import Coordinate
 class TestCoordinate(unittest.TestCase):
     def testXandY(self):
         coor = Coordinate((1,2))
-        self.assertEquals(1,coor.x)
-        self.assertEquals(2,coor.y)
+        self.assertEqual(1,coor.x)
+        self.assertEqual(2,coor.y)
 
     def testGetX(self):
         coor = Coordinate((1,2))
-        self.assertEquals(1,coor.getX())
+        self.assertEqual(1,coor.getX())
 
     def testGetY(self):
         coor = Coordinate((1,2))
-        self.assertEquals(2,coor.getY())
+        self.assertEqual(2,coor.getY())
 
     def testGetXY(self):
         coor = Coordinate((1,2))
-        self.assertEquals((1,2),coor.getXY())
+        self.assertEqual((1,2),coor.getXY())
 
     def testGetRow(self):
         coor = Coordinate((1,2))
-        self.assertEquals("C",coor.getRow())
+        self.assertEqual("C",coor.getRow())
 
     def testGetColumn(self):
         coor = Coordinate((1,2))
-        self.assertEquals(2,coor.getColumn())
+        self.assertEqual(2,coor.getColumn())
 
     def testGetRowColumn(self):
         coor = Coordinate((1,2))
-        self.assertEquals(("C",2),coor.getRowColumn())
+        self.assertEqual(("C",2),coor.getRowColumn())
 
     def testGetRowColumnJ10(self):
         coor = Coordinate.Factory(("J",10))
-        self.assertEquals(("J",10),coor.getRowColumn())
+        self.assertEqual(("J",10),coor.getRowColumn())
 
     def testEquality(self):
         coor1 = Coordinate.Factory(("J",10))
@@ -48,33 +48,33 @@ class TestCoordinate(unittest.TestCase):
 
     def testFactoryA1(self):
         coor = Coordinate.Factory(("A",1))
-        self.assertEquals(0,coor.getX())
-        self.assertEquals(0,coor.getY())
+        self.assertEqual(0,coor.getX())
+        self.assertEqual(0,coor.getY())
 
     def testFactoryE5(self):
         coor = Coordinate.Factory(("E",5))
-        self.assertEquals(4,coor.getX())
-        self.assertEquals(4,coor.getY())
+        self.assertEqual(4,coor.getX())
+        self.assertEqual(4,coor.getY())
 
     def testFactoryJ10(self):
         coor = Coordinate.Factory(("J",10))
-        self.assertEquals(9,coor.getX())
-        self.assertEquals(9,coor.getY())
+        self.assertEqual(9,coor.getX())
+        self.assertEqual(9,coor.getY())
 
     def testFactoryA10(self):
         coor = Coordinate.Factory(("A",10))
-        self.assertEquals(9,coor.getX())
-        self.assertEquals(0,coor.getY())
+        self.assertEqual(9,coor.getX())
+        self.assertEqual(0,coor.getY())
 
     def testFactoryJ1(self):
         coor = Coordinate.Factory(("J",1))
-        self.assertEquals(0,coor.getX())
-        self.assertEquals(9,coor.getY())
+        self.assertEqual(0,coor.getX())
+        self.assertEqual(9,coor.getY())
 
     def testFactoryE1(self):
         coor = Coordinate.Factory(("E",1))
-        self.assertEquals(0,coor.getX())
-        self.assertEquals(4,coor.getY())
+        self.assertEqual(0,coor.getX())
+        self.assertEqual(4,coor.getY())
 
     def testInvalidArguments(self):
         self.assertRaises(ValueError,Coordinate,(-1,0))

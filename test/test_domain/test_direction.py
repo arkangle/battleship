@@ -17,7 +17,7 @@ class TestHorizontalDirection(unittest.TestCase):
 
     def testGetEndXY(self):
         end_x_y = self.Dir.getEndXY((1,2),3)
-        self.assertEquals((4,2),end_x_y)
+        self.assertEqual((4,2),end_x_y)
 
     def testInBetween(self):
         origin_x_y = (1,2)
@@ -36,7 +36,7 @@ class TestHorizontalDirection(unittest.TestCase):
         origin_x_y = (1,2)
         length = 3
         range_x_y = self.Dir.getRange(origin_x_y,length)
-        self.assertEquals(asserts,range_x_y)
+        self.assertEqual(asserts,range_x_y)
 
 
 class TestVerticalDirection(unittest.TestCase):
@@ -45,7 +45,7 @@ class TestVerticalDirection(unittest.TestCase):
 
     def testGetEndXY(self):
         end_x_y = self.Dir.getEndXY((1,2),3)
-        self.assertEquals((1,5),end_x_y)
+        self.assertEqual((1,5),end_x_y)
 
     def testInBetween(self):
         origin_x_y = (1,2)
@@ -65,4 +65,4 @@ class TestVerticalDirection(unittest.TestCase):
         origin_x_y = (1,2)
         length = 3
         range_x_y = self.Dir.getRange(origin_x_y,length)
-        self.assertEquals(asserts,range_x_y)
+        self.assertEqual(asserts,range_x_y)
