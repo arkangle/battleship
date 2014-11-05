@@ -1,11 +1,14 @@
 
 import unittest
 from domain.player import Player,Turn
+from domain.battlefield import Battlefield
 
 class TestTurn(unittest.TestCase):
     def setUp(self):
-        self.Player1 = Player("Player 1")
-        self.Player2 = Player("Player 2")
+        battlefield1 = Battlefield()
+        battlefield2 = Battlefield()
+        self.Player1 = Player("Player 1",battlefield1)
+        self.Player2 = Player("Player 2",battlefield2)
         self.Turn = Turn(self.Player1,self.Player2)
 
     def testCurrentPlayer(self):
