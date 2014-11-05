@@ -1,6 +1,7 @@
 
 import unittest
-from domain.player import Player,Turn
+from domain.player import Player
+from domain.turn import Turn
 from domain.battlefield import Battlefield
 
 class TestTurn(unittest.TestCase):
