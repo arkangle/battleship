@@ -5,23 +5,20 @@ class Battleship(cmd.Cmd):
     prompt = "Battleship: "
     intro = "This is the classical game of battleship"
     Game = None
-    def do_names(self,names):
+    def do_names(self,empty):
         '''Supply two (2) Player Names'''
-        named = names.split()
-        if(len(named) == 2):
-            self.Game = Game.StartByName(named[0],named[1])
-        else:
-            print("Two (2) Player Names Required")
+        name1 = input("Enter Player 1 Name: ")
+        name2 = input("Enter Player 2 Name: ")
+        self.Game = Game.StartByName(name1,name2)
     def hasGame(self):
         return self.Game != None
     def do_players(self,empty):
         '''Print existing Players'''
         if not self.hasGame():
-            print("Game Not Created Yet")
-        else:
-            Players = self.Game.getPlayers()
-            print("Player 1: %s" % Players[0].getName())
-            print("Player 2: %s" % Players[1].getName())
+            self.do_names(None)
+        Players = self.Game.getPlayers()
+        print("Player 1: %s" % Players[0].getName())
+        print("Player 2: %s" % Players[1].getName())
     def do_EOF(self,blank):
         '''Finish Well'''
         print("Bye For Now")
