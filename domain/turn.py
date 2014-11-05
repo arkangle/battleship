@@ -12,6 +12,9 @@ class Turn:
         opponent = self.toggleBoolean(self.turn)
         return self.players[opponent]
 
+    def getPlayers(self):
+        return self.players
+
     def toggleTurn(self):
         self.turn = self.toggleBoolean(self.turn)
 

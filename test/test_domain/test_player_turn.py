@@ -42,3 +42,8 @@ class TestTurn(unittest.TestCase):
 
         self.assertGreater(track,1)
         self.assertLess(track,9)
+
+    def testGetPlayers(self):
+        Players = self.Turn.getPlayers()
+        self.assertEqual(Players[0],self.Player1)
+        self.assertEqual(Players[1],self.Player2)
