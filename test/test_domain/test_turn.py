@@ -47,3 +47,9 @@ class TestTurn(unittest.TestCase):
         Players = self.Turn.getPlayers()
         self.assertEqual(Players[0],self.Player1)
         self.assertEqual(Players[1],self.Player2)
+
+    def testGetPlayerByName(self):
+        Player1 = self.Turn.getPlayerByName("Player 1")
+        self.assertEqual(Player1.getName(),"Player 1")
+        Player2 = self.Turn.getPlayerByName("Player 2")
+        self.assertEqual(Player2.getName(),"Player 2")

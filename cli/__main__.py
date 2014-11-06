@@ -10,8 +10,6 @@ class Battleship(cmd.Cmd):
         name1 = input("Enter Player 1 Name: ")
         name2 = input("Enter Player 2 Name: ")
         self.Game = Game.StartByName(name1,name2)
-    def hasGame(self):
-        return self.Game != None
     def do_players(self,empty):
         '''Print existing Players'''
         if not self.hasGame():
@@ -24,12 +22,16 @@ class Battleship(cmd.Cmd):
         print("Bye For Now")
         return True
     def do_battlefield(self,name):
-        pass
+        '''Print Battlefield of Player'''
+        Player = self.Game.getPlayerByName(name)
+        Battlefield = Player.getBattlefield()
     def complete_battlefield(self, text, line, begidx, endidx):
         return self.completePlayerNames(text)
     def completePlayerNames(self,text):
         completions = [Player.getName() for Player in self.Game.getPlayers() if Player.getName().startswith(text)]
         return completions
+    def hasGame(self):
+        return self.Game != None
 
 if __name__ == '__main__' :
    Battleship().cmdloop() 

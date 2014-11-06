@@ -17,3 +17,6 @@ class Game:
 
     def getPlayers(self):
         return self.PlayerTurn.getPlayers()
+
+    def getPlayerByName(self,name):
+        return self.PlayerTurn.getPlayerByName(name)

@@ -23,3 +23,11 @@ class Turn:
 
     def randomTurn(self):
         self.turn = random.randrange(0,2)
+
+    def getPlayerByName(self,name):
+        found = None
+        for player in self.players:
+            if player.getName() == name:
+                found = player
+                break
+        return found
