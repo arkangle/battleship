@@ -26,15 +26,9 @@ class Battleship(cmd.Cmd):
     def do_battlefield(self,name):
         pass
     def complete_battlefield(self, text, line, begidx, endidx):
-        Players = self.Game.getPlayers()
-        names = [Players[0].getName(),Players[1].getName()]
-        if not text:
-            completions = names
-        else:
-            completions = []
-            for name in names:
-                if name.startswith(text):
-                    completions.append(name)
+        return self.completePlayerNames(text)
+    def completePlayerNames(self,text):
+        completions = [Player.getName() for Player in self.Game.getPlayers() if Player.getName().startswith(text)]
         return completions
 
 if __name__ == '__main__' :
