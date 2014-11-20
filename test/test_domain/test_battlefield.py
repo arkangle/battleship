@@ -80,6 +80,24 @@ class TestBattlefield(unittest.TestCase):
         ship = self.Battlefield.shotAt(Coordinate((0,1)))
         self.assertTrue(self.Battlefield.areAllSunk())
 
+    def testGetHits(self):
+        HTestShip = self.getGenericShip((1,1),"H","HorizShip",3)
+        self.Battlefield.addShip(HTestShip)
+        Hits = []
+        self.assertEqual(Hits,self.Battlefield.getHits())
+        Attempt = Coordinate((1,1))
+        Hits.append(Attempt)
+        ship = self.Battlefield.shotAt(Attempt)
+        self.assertEqual(Hits,self.Battlefield.getHits())
+        Attempt = Coordinate((2,1))
+        Hits.append(Attempt)
+        ship = self.Battlefield.shotAt(Attempt)
+        self.assertEqual(Hits,self.Battlefield.getHits())
+        Attempt = Coordinate((3,1))
+        Hits.append(Attempt)
+        ship = self.Battlefield.shotAt(Attempt)
+        self.assertEqual(Hits,self.Battlefield.getHits())
+
     def getFullCollection(self):
         collection = []
         collection.append(Ship(Carrier(),Coordinate((1,1)),HorizontalDirection()))
@@ -99,4 +117,3 @@ class TestBattlefield(unittest.TestCase):
         Dir = Direction.Factory(dir)
         Type = ShipType(name,length)
         return Ship(Type,Origin,Dir)
-

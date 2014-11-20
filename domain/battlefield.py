@@ -28,3 +28,9 @@ class Battlefield:
 
     def getMissed(self):
         return self.Missed
+
+    def getHits(self):
+        hits = []
+        for s in self.ShipCollection:
+            hits += s.getHits()
+        return hits
