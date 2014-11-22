@@ -18,7 +18,7 @@ class Battlefield:
             if(hit):
                 return ship
         self.Missed.append(coordinate)
-        raise ValueError("Miss")
+        return None
 
     def areAllSunk(self):
         for ship in self.ShipCollection:

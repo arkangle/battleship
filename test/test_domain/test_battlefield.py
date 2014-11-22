@@ -1,6 +1,6 @@
 
 import unittest
-from domain.battlefield import Battlefield
+from domain.battlefield import *
 from domain.coordinate import Coordinate
 from domain.direction import *
 from domain.ship_type import *
@@ -41,24 +41,24 @@ class TestBattlefield(unittest.TestCase):
     def testShotAtMiss(self):
         self.fillBattlefield()
         Attempt = Coordinate((0,0))
-        self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
+        self.assertIsNone(self.Battlefield.shotAt(Attempt))
         Attempt = Coordinate((9,9))
-        self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
+        self.assertIsNone(self.Battlefield.shotAt(Attempt))
         Attempt = Coordinate((0,1))
-        self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
+        self.assertIsNone(self.Battlefield.shotAt(Attempt))
         Attempt = Coordinate((6,1))
-        self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
+        self.assertIsNone(self.Battlefield.shotAt(Attempt))
 
     def testGetMissed(self):
         self.fillBattlefield()
         Missed = []
         Attempt = Coordinate((0,0))
         Missed.append(Attempt)
-        self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
+        self.Battlefield.shotAt(Attempt)
         self.assertEqual(Missed,self.Battlefield.getMissed())
         Attempt = Coordinate((9,9))
         Missed.append(Attempt)
-        self.assertRaises(ValueError,self.Battlefield.shotAt,Attempt)
+        self.Battlefield.shotAt(Attempt)
         self.assertEqual(Missed,self.Battlefield.getMissed())
 
     def testAreAllSunk(self):

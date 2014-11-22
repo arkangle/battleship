@@ -6,10 +6,15 @@ class Battleship(cmd.Cmd):
     prompt = "Battleship: "
     intro = "This is the classical game of battleship"
     Game = None
-    def do_names(self,empty):
+    def do_names(self,names):
         '''Supply two (2) Player Names'''
-        name1 = input("Enter Player 1 Name: ")
-        name2 = input("Enter Player 2 Name: ")
+        if(names == None or len(names.split(" ")) < 2):
+            name1 = input("Enter Player 1 Name: ")
+            name2 = input("Enter Player 2 Name: ")
+        else:
+            named = names.split(" ")
+            name1 = named[0]
+            name2 = named[1]
         self.Game = Game.StartByName(name1,name2)
     def do_players(self,empty):
         '''Print existing Players'''
@@ -44,24 +49,30 @@ class Battleship(cmd.Cmd):
         print("\n".join(rows))
     def complete_battlefield(self, text, line, begidx, endidx):
         return self.completePlayerNames(text)
-    def do_fire(self,name):
-        '''Fire At Other Player'''
-        row = input("Row (A-J) ").upper()
-        column = input("Column (1-10) ")
+    def do_fire(self,args_str):
+        '''Fire At Player'''
+        args = args_str.split(" ")
+        if(len(args) < 3):
+            name = input("Player? ")
+            row = input("Row (A-J)? ")
+            column = input("Column (1-10)? ")
+        else:
+            name = args[0]
+            row = args[1]
+            column = args[2]
         try:
-            c = Coordinate.Factory((row,int(column)))
+            row = row.upper()
+            col = int(column)
             Player = self.Game.getPlayerByName(name)
-            Battlefield = Player.getBattlefield()
-            try:
-                ship = Battlefield.shotAt(c)
-                print("Hit")
-            except ValueError:
+            ship = self.Game.fireAtPlayer(Player,row,col)
+            if(ship == None):
                 print("Missed")
+            elif ship.isSunk():
+                print("The %s is Sunk!" % ship.getName())
+            else:
+                print("Hit")
         except ValueError:
-            print("Invalid Coordinate {0},{1}" % (row,column))
-
-    def complete_fire(self, text, line, begidx, endidx):
-        return self.completePlayerNames(text)
+            print("Invalid Coordinate")
     def completePlayerNames(self,text):
         completions = [Player.getName() for Player in self.Game.getPlayers() if Player.getName().startswith(text)]
         return completions

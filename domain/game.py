@@ -2,6 +2,7 @@
 from domain.player import *
 from domain.turn import *
 from domain.battlefield import *
+from domain.coordinate import *
 
 class Game:
     PlayerTurn = None
@@ -20,3 +21,12 @@ class Game:
 
     def getPlayerByName(self,name):
         return self.PlayerTurn.getPlayerByName(name)
+
+    def createCoordinate(self,row,column):
+        C = Coordinate.Factory((row,int(column)))
+        return C
+
+    def fireAtPlayer(self,player,row,column):
+        C = self.createCoordinate(row,column)
+        Battlefield = player.getBattlefield()
+        return Battlefield.shotAt(C)
