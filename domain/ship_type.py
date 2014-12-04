@@ -11,7 +11,10 @@ class ShipType:
         return self.name
 
     def __eq__(self,Other):
-        return self.name == Other.getName() and self.length == Other.getLength()
+        if(Other == None):
+            return False
+        else:
+            return self.name == Other.getName() and self.length == Other.getLength()
 
     def __ne__(self,Other):
         return not self.__eq__(Other)

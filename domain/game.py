@@ -3,6 +3,7 @@ from domain.player import *
 from domain.turn import *
 from domain.battlefield import *
 from domain.coordinate import *
+from domain.grid import *
 
 class Game:
     PlayerTurn = None
@@ -30,3 +31,7 @@ class Game:
         C = self.createCoordinate(row,column)
         Battlefield = player.getBattlefield()
         return Battlefield.shotAt(C)
+
+    def getGridPlayer(self,player):
+        Battlefield = player.getBattlefield()
+        return Grid.factory(Battlefield.Missed,Battlefield.ShipCollection)

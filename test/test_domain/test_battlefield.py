@@ -49,18 +49,6 @@ class TestBattlefield(unittest.TestCase):
         Attempt = Coordinate((6,1))
         self.assertIsNone(self.Battlefield.shotAt(Attempt))
 
-    def testGetMissed(self):
-        self.fillBattlefield()
-        Missed = []
-        Attempt = Coordinate((0,0))
-        Missed.append(Attempt)
-        self.Battlefield.shotAt(Attempt)
-        self.assertEqual(Missed,self.Battlefield.getMissed())
-        Attempt = Coordinate((9,9))
-        Missed.append(Attempt)
-        self.Battlefield.shotAt(Attempt)
-        self.assertEqual(Missed,self.Battlefield.getMissed())
-
     def testAreAllSunk(self):
         HTestShip = self.getGenericShip((1,1),"H","HorizShip",3)
         self.Battlefield.addShip(HTestShip)
@@ -79,24 +67,6 @@ class TestBattlefield(unittest.TestCase):
         self.assertFalse(self.Battlefield.areAllSunk())
         ship = self.Battlefield.shotAt(Coordinate((0,1)))
         self.assertTrue(self.Battlefield.areAllSunk())
-
-    def testGetHits(self):
-        HTestShip = self.getGenericShip((1,1),"H","HorizShip",3)
-        self.Battlefield.addShip(HTestShip)
-        Hits = []
-        self.assertEqual(Hits,self.Battlefield.getHits())
-        Attempt = Coordinate((1,1))
-        Hits.append(Attempt)
-        ship = self.Battlefield.shotAt(Attempt)
-        self.assertEqual(Hits,self.Battlefield.getHits())
-        Attempt = Coordinate((2,1))
-        Hits.append(Attempt)
-        ship = self.Battlefield.shotAt(Attempt)
-        self.assertEqual(Hits,self.Battlefield.getHits())
-        Attempt = Coordinate((3,1))
-        Hits.append(Attempt)
-        ship = self.Battlefield.shotAt(Attempt)
-        self.assertEqual(Hits,self.Battlefield.getHits())
 
     def getFullCollection(self):
         collection = []

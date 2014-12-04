@@ -1,6 +1,5 @@
 import cmd
 from domain.game import Game
-from domain.coordinate import Coordinate
 
 class Battleship(cmd.Cmd):
     prompt = "Battleship: "
@@ -30,22 +29,19 @@ class Battleship(cmd.Cmd):
     def do_battlefield(self,name):
         '''Print Battlefield of Player'''
         Player = self.Game.getPlayerByName(name)
-        Battlefield = Player.getBattlefield()
-        Hits = Battlefield.getHits()
-        Missed = Battlefield.getMissed()
+        grid = self.Game.getGridPlayer(Player)
         rows = []
-        rows.append(" " + "".join([str(c).rjust(2) for c in Coordinate.columns]))
-        for x in range(0,10):
-            row = [Coordinate.rows[x]]
-            for y in range(0,10):
-                c = Coordinate((y,x))
-                if Hits.count(c) > 0:
+        rows.append(" " + "".join([str(c).rjust(3) for c in grid.getColumnLabels()]))
+        for Row in grid.getRows():
+            row = [Row.getLabel()]
+            for Cell in Row.getCells():
+                if Cell.isHit():
                     row.append("H")
-                elif Missed.count(c) > 0:
+                elif Cell.isMiss():
                     row.append("M")
                 else:
                     row.append(".")
-            rows.append(" ".join(row))
+            rows.append("  ".join(row))
         print("\n".join(rows))
     def complete_battlefield(self, text, line, begidx, endidx):
         return self.completePlayerNames(text)

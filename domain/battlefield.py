@@ -25,12 +25,3 @@ class Battlefield:
             if(not ship.isSunk()):
                 return False
         return True
-
-    def getMissed(self):
-        return self.Missed
-
-    def getHits(self):
-        hits = []
-        for s in self.ShipCollection:
-            hits += s.getHits()
-        return hits
