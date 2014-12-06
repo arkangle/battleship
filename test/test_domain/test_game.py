@@ -19,7 +19,7 @@ class TestGame(unittest.TestCase):
         Sue = self.Game.getPlayerByName("Sue")
         self.assertEqual(Sue.getName(),"Sue")
     def testCreateCoordinate(self):
-        C = Coordinate((9,2))
+        C = Coordinate(9,2)
         row = "C"
         column = "10"
         testCoordinate = self.Game.createCoordinate(row,column)

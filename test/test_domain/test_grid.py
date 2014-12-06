@@ -35,7 +35,7 @@ class TestGrid(unittest.TestCase):
                 self.assertEqual(cell,Cell(False))
     def testFactoryWithMiss(self):
         Tests = {2:{2:Cell(True)},3:{3:Cell(True)}}
-        Missed = [Coordinate((2,2)),Coordinate((3,3))]
+        Missed = [Coordinate(2,2),Coordinate(3,3)]
         grid = Grid.factory(Missed,[])
         y = 0
         for row in grid.getRows():
@@ -52,7 +52,7 @@ class TestGrid(unittest.TestCase):
     def testFactoryWithShip(self):
         destroyer = Destroyer()
         Tests = {2:{2:Cell(False,destroyer)},3:{2:Cell(False,destroyer)}}
-        ship = Ship(destroyer,Coordinate((2,2)),VerticalDirection())
+        ship = Ship(destroyer,Coordinate(2,2),VerticalDirection())
         ShipCollection = [ship]
         grid = Grid.factory([],ShipCollection)
         y = 0

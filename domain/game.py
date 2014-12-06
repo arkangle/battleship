@@ -24,7 +24,7 @@ class Game:
         return self.PlayerTurn.getPlayerByName(name)
 
     def createCoordinate(self,row,column):
-        C = Coordinate.Factory((row,int(column)))
+        C = Coordinate.Factory(row,int(column))
         return C
 
     def fireAtPlayer(self,player,row,column):

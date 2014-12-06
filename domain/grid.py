@@ -17,7 +17,7 @@ class Grid:
             for (x,y) in ship.getLocation():
                 if not y in grid:
                     grid[y] = {}
-                grid[y][x] = Cell(ship.hasHit(Coordinate((x,y))),ship.getType())
+                grid[y][x] = Cell(ship.hasHit(Coordinate(x,y)),ship.getType())
 
         Rows = []
         labels = list(string.ascii_uppercase)
