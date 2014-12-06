@@ -26,28 +26,28 @@ class TestBattlefield(unittest.TestCase):
         VTestShip = self.getGenericShip(0,0,"V","Ship",4)
         self.assertRaisesRegex(ValueError,"Ship Type Already Used",self.Battlefield.addShip,VTestShip)
 
-    def testShotAtHit(self):
+    def testFireAndHit(self):
         self.fillBattlefield()
-        ship = self.Battlefield.shotAt(Coordinate(0,3))
+        ship = self.Battlefield.fire(Coordinate(0,3))
         
-    def testShotAtHitSink(self):
+    def testFireHitSink(self):
         self.fillBattlefield()
         for i in range(1,5):
-            ship = self.Battlefield.shotAt(Coordinate(i,1))
+            ship = self.Battlefield.fire(Coordinate(i,1))
             self.assertFalse(ship.isSunk())
-        ship = self.Battlefield.shotAt(Coordinate(5,1))
+        ship = self.Battlefield.fire(Coordinate(5,1))
         self.assertTrue(ship.isSunk())
 
-    def testShotAtMiss(self):
+    def testFireMiss(self):
         self.fillBattlefield()
         Attempt = Coordinate(0,0)
-        self.assertIsNone(self.Battlefield.shotAt(Attempt))
+        self.assertIsNone(self.Battlefield.fire(Attempt))
         Attempt = Coordinate(9,9)
-        self.assertIsNone(self.Battlefield.shotAt(Attempt))
+        self.assertIsNone(self.Battlefield.fire(Attempt))
         Attempt = Coordinate(0,1)
-        self.assertIsNone(self.Battlefield.shotAt(Attempt))
+        self.assertIsNone(self.Battlefield.fire(Attempt))
         Attempt = Coordinate(6,1)
-        self.assertIsNone(self.Battlefield.shotAt(Attempt))
+        self.assertIsNone(self.Battlefield.fire(Attempt))
 
     def testAreAllSunk(self):
         HTestShip = self.getGenericShip(1,1,"H","HorizShip",3)
@@ -55,17 +55,17 @@ class TestBattlefield(unittest.TestCase):
         VTestShip = self.getGenericShip(0,0,"V","VertShip",2)
         self.Battlefield.addShip(VTestShip)
         self.assertFalse(self.Battlefield.areAllSunk())
-        ship = self.Battlefield.shotAt(Coordinate(1,1))
+        ship = self.Battlefield.fire(Coordinate(1,1))
         self.assertFalse(self.Battlefield.areAllSunk())
-        ship = self.Battlefield.shotAt(Coordinate(2,1))
+        ship = self.Battlefield.fire(Coordinate(2,1))
         self.assertFalse(self.Battlefield.areAllSunk())
-        ship = self.Battlefield.shotAt(Coordinate(3,1))
+        ship = self.Battlefield.fire(Coordinate(3,1))
         self.assertFalse(self.Battlefield.areAllSunk())
-        ship = self.Battlefield.shotAt(Coordinate(0,0))
+        ship = self.Battlefield.fire(Coordinate(0,0))
         self.assertFalse(self.Battlefield.areAllSunk())
-        ship = self.Battlefield.shotAt(Coordinate(0,0))
+        ship = self.Battlefield.fire(Coordinate(0,0))
         self.assertFalse(self.Battlefield.areAllSunk())
-        ship = self.Battlefield.shotAt(Coordinate(0,1))
+        ship = self.Battlefield.fire(Coordinate(0,1))
         self.assertTrue(self.Battlefield.areAllSunk())
 
     def getFullCollection(self):

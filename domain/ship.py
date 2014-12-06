@@ -1,4 +1,3 @@
-
 class Ship:
     def __init__(self,ShipType,Origin,Direction):
         self.Type = ShipType
@@ -10,12 +9,10 @@ class Ship:
         return self.Type
 
     def isHit(self,Coordinate):
-        origin_x_y = self.Origin.getXY()
-        try_x_y = Coordinate.getXY()
-        length = self.Type.getLength()
-        return self.Direction.inBetween(origin_x_y,length,try_x_y)
+        Coordinates = self.getCoordinates()
+        return Coordinates.count(Coordinate) > 0
 
-    def shotAt(self,Coordinate):
+    def fire(self,Coordinate):
         if(self.isHit(Coordinate)):
             if(not self.hasHit(Coordinate)):
                 self.hits.append(Coordinate)
@@ -31,15 +28,12 @@ class Ship:
     def isSunk(self):
         return self.Type.getLength() <= len(self.hits)
 
-    def getLocation(self):
-        origin_x_y = self.Origin.getXY()
-        length = self.Type.getLength()
-        return self.Direction.getRange(origin_x_y,length)
+    def getCoordinates(self):
+        return self.Origin.range(self.Direction,self.Type.getLength())
 
     def isConflict(self,OtherShip):
-        r = OtherShip.getLocation()
-        for x_y in self.getLocation():
+        r = OtherShip.getCoordinates()
+        for x_y in self.getCoordinates():
             if(r.count(x_y)>0):
                 return True
         return False
-

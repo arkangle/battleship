@@ -1,5 +1,4 @@
 import string
-from domain.coordinate import Coordinate
 class Grid:
     row_count = 10
     column_count = 10
@@ -14,10 +13,12 @@ class Grid:
                 grid[y] = {}
             grid[y][x] = Cell(True)
         for ship in ShipCollection:
-            for (x,y) in ship.getLocation():
+            for Coor in ship.getCoordinates():
+                x = Coor.getX()
+                y = Coor.getY()
                 if not y in grid:
                     grid[y] = {}
-                grid[y][x] = Cell(ship.hasHit(Coordinate(x,y)),ship.getType())
+                grid[y][x] = Cell(ship.hasHit(Coor),ship.getType())
 
         Rows = []
         labels = list(string.ascii_uppercase)

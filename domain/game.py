@@ -30,7 +30,7 @@ class Game:
     def fireAtPlayer(self,player,row,column):
         C = self.createCoordinate(row,column)
         Battlefield = player.getBattlefield()
-        return Battlefield.shotAt(C)
+        return Battlefield.fire(C)
 
     def getGridPlayer(self,player):
         Battlefield = player.getBattlefield()

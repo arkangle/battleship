@@ -12,9 +12,9 @@ class Battlefield:
                 raise ValueError("Ship Type Already Used (%s)" % s.getType().getName())
         self.ShipCollection.append(Ship)
 
-    def shotAt(self,coordinate):
+    def fire(self,coordinate):
         for ship in self.ShipCollection:
-            hit = ship.shotAt(coordinate)
+            hit = ship.fire(coordinate)
             if(hit):
                 return ship
         self.Missed.append(coordinate)

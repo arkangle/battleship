@@ -1,4 +1,3 @@
-
 class Coordinate:
     rows = ['A','B','C','D','E','F','G','H','I','J']
     columns = range(1,11)
@@ -35,3 +34,12 @@ class Coordinate:
 
     def __ne(self,Other):
         return not self.__eq__(Other)
+
+    def range(self,Direction,length):
+        Coor = self
+        rc = [Coor]
+        for i in range(length-1):
+            x_y = Direction.nextXY(Coor.getXY())
+            Coor = Coordinate(x_y[0],x_y[1])
+            rc.append(Coor)
+        return rc

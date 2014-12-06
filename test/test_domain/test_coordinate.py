@@ -1,6 +1,7 @@
 
 import unittest
 from domain.coordinate import Coordinate
+from domain.direction import *
 
 class TestCoordinate(unittest.TestCase):
     def testXandY(self):
@@ -81,3 +82,9 @@ class TestCoordinate(unittest.TestCase):
         self.assertRaises(ValueError,Coordinate.Factory,"K",0)
         self.assertRaises(ValueError,Coordinate.Factory,"Z",11)
 
+    def testRange(self):
+        tests = [Coordinate(3,3),Coordinate(4,3),Coordinate(5,3)]
+        Horiz = HorizontalDirection();
+        Coor = Coordinate(3,3)
+        Range = Coor.range(Horiz,3)
+        self.assertEqual(tests,Range)
