@@ -5,10 +5,12 @@ class Battlefield:
         self.Missed = []
 
     def addShip(self,Ship):
+        if(Ship.isOutOfRange()):
+            raise ValueError("Ship Out Of Range (%s)" % Ship.getType().getName())
         for s in self.ShipCollection:
             if(s.isConflict(Ship)):
                 raise ValueError("Ship in the way (%s)" % Ship.getType().getName())
-            if(s.getType().getName() == Ship.getType().getName()):
+            if(s.getType() == Ship.getType()):
                 raise ValueError("Ship Type Already Used (%s)" % s.getType().getName())
         self.ShipCollection.append(Ship)
 

@@ -26,10 +26,27 @@ class Battleship(cmd.Cmd):
         '''Finish Well'''
         print("Bye For Now")
         return True
+    def do_random(self,name):
+        Player = self.Game.getPlayerByName(name)
+        self.Game.randomPlacementsPlayer(Player)
+    def complete_random(self, text, line, begidx, endidx):
+        return self.completePlayerNames(text)
     def do_battlefield(self,name):
         '''Print Battlefield of Player'''
-        Player = self.Game.getPlayerByName(name)
-        grid = self.Game.getGridPlayer(Player)
+        Players = self.Game.getPlayers()
+        for player in Players:
+            if player.getName() == name:
+                CurrentPlayer = player
+            else:
+                OtherPlayer = player
+        OtherGrid = self.Game.getGridPlayer(OtherPlayer)
+        self.printGrid(OtherGrid,False)
+        CurrentGrid = self.Game.getGridPlayer(CurrentPlayer)
+        print("-" * 31)
+        self.printGrid(CurrentGrid,True)
+    def complete_battlefield(self, text, line, begidx, endidx):
+        return self.completePlayerNames(text)
+    def printGrid(self,grid,showShips = False):
         rows = []
         rows.append(" " + "".join([str(c).rjust(3) for c in grid.getColumnLabels()]))
         for Row in grid.getRows():
@@ -37,14 +54,15 @@ class Battleship(cmd.Cmd):
             for Cell in Row.getCells():
                 if Cell.isHit():
                     row.append("H")
+                elif showShips and Cell.hasShip():
+                    shipType = Cell.getShipType()
+                    row.append(shipType.getName()[0])
                 elif Cell.isMiss():
                     row.append("M")
                 else:
                     row.append(".")
             rows.append("  ".join(row))
         print("\n".join(rows))
-    def complete_battlefield(self, text, line, begidx, endidx):
-        return self.completePlayerNames(text)
     def do_fire(self,args_str):
         '''Fire At Player'''
         args = args_str.split(" ")
@@ -64,7 +82,10 @@ class Battleship(cmd.Cmd):
             if(ship == None):
                 print("Missed")
             elif ship.isSunk():
-                print("The %s is Sunk!" % ship.getName())
+                print("The %s is Sunk!" % ship.getType().getName())
+                if(self.Game.didLosePlayer(Player)):
+                    print("Player %s Lost!" % Player.getName())
+                    return True
             else:
                 print("Hit")
         except ValueError:

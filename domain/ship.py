@@ -37,3 +37,7 @@ class Ship:
             if(r.count(x_y)>0):
                 return True
         return False
+
+    def isOutOfRange(self):
+        lastCoordinate = self.getCoordinates().pop()
+        return lastCoordinate.getX() > 9 or lastCoordinate.getY() > 9;

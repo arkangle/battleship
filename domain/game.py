@@ -1,9 +1,13 @@
-
 from domain.player import *
 from domain.turn import *
 from domain.battlefield import *
 from domain.coordinate import *
 from domain.grid import *
+from domain.direction import *
+from domain.ship import *
+from domain.ship_type import *
+import random
+import sys
 
 class Game:
     PlayerTurn = None
@@ -32,6 +36,29 @@ class Game:
         Battlefield = player.getBattlefield()
         return Battlefield.fire(C)
 
+    def didLosePlayer(self,player):
+        Battlefield = player.getBattlefield()
+        return Battlefield.areAllSunk()
+
     def getGridPlayer(self,player):
         Battlefield = player.getBattlefield()
         return Grid.factory(Battlefield.Missed,Battlefield.ShipCollection)
+
+    def randomPlacementsPlayer(self,player):
+        Battlefield = player.getBattlefield()
+        ShipTypes = [Battleship(),Carrier(),Cruiser(),Destroyer(),Submarine()]
+        Directions = [HorizontalDirection(),VerticalDirection()]
+        for ship_type in ShipTypes:
+            retry = True
+            while(retry):
+                rand_dir = random.randrange(0,2)
+                rand_x = random.randrange(0,10)
+                rand_y = random.randrange(0,10)
+                rand_Coordinate = Coordinate(rand_x,rand_y)
+                rand_Direction = Directions[rand_dir]
+                rand_Ship = Ship(ship_type,rand_Coordinate,rand_Direction)
+                try:
+                    Battlefield.addShip(rand_Ship)
+                    retry = False
+                except:
+                    pass

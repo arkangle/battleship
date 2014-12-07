@@ -74,7 +74,7 @@ class TestBattlefield(unittest.TestCase):
         collection.append(Ship(Cruiser(),Coordinate(0,2),VerticalDirection()))
         collection.append(Ship(Destroyer(),Coordinate(4,2),VerticalDirection()))
         collection.append(Ship(Battleship(),Coordinate(7,5),VerticalDirection()))
-        collection.append(Ship(Submarine(),Coordinate(2,9),VerticalDirection()))
+        collection.append(Ship(Submarine(),Coordinate(9,2),VerticalDirection()))
         return collection
 
     def fillBattlefield(self):

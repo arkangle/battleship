@@ -162,3 +162,12 @@ class TestVertShip(unittest.TestCase):
         OtherShip = Ship(Type,Origin,Dir)
         self.assertFalse(self.TestShip.isConflict(OtherShip))
 
+    def testNotIsOutOfRange(self):
+        self.assertFalse(self.TestShip.isOutOfRange())
+
+    def testIsOutOfRange(self):
+        Origin = Coordinate(9,0)
+        Dir = HorizontalDirection()
+        Type = ShipType("HorizShip",4)
+        ship = Ship(Type,Origin,Dir)
+        self.assertTrue(ship.isOutOfRange())
