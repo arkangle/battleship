@@ -35,7 +35,7 @@ class Battleship(cmd.Cmd):
             OpponentPlayer = PlayerTurn.getOpponentPlayer()
             Grid = self.Game.getGridPlayer(OpponentPlayer)
             print("-" * 31)
-            self.printGrid(Grid,True)
+            self.printGrid(Grid)
             fire = input("%s's Turn: " % (CurrentPlayer.getName()))
             try:
                 fired = fire.split(" ")
