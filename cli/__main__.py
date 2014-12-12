@@ -22,6 +22,46 @@ class Battleship(cmd.Cmd):
         Players = self.Game.getPlayers()
         print("Player 1: %s" % Players[0].getName())
         print("Player 2: %s" % Players[1].getName())
+    def do_play(self,names):
+        '''Play The Game!!!'''
+        self.do_names(names)
+        PlayerTurn = self.Game.getPlayerTurn()
+        Players = PlayerTurn.getPlayers()
+        self.Game.randomPlacementsPlayer(Players[0])
+        self.Game.randomPlacementsPlayer(Players[1])
+        PlayerTurn.randomTurn()
+        while(True):
+            CurrentPlayer = PlayerTurn.getCurrentPlayer()
+            OpponentPlayer = PlayerTurn.getOpponentPlayer()
+            Grid = self.Game.getGridPlayer(OpponentPlayer)
+            print("-" * 31)
+            self.printGrid(Grid,True)
+            fire = input("%s's Turn: " % (CurrentPlayer.getName()))
+            try:
+                fired = fire.split(" ")
+                if len(fired) == 2:
+                    (row,column) = fired
+                elif len(fired) == 1:
+                    fired = list(fire)
+                    row = fired[0]
+                    column = "".join(fired[1:])
+                r = row.upper()
+                c = int(column)
+                ship = self.Game.fireAtPlayer(OpponentPlayer,r,c)
+            except:
+                print("Bad Entry. Please Try Again")
+                continue
+            if(ship == None):
+                print("Missed: (%s,%s)" % (r,c))
+            elif ship.isSunk():
+                print("The %s is Sunk!" % ship.getType().getName())
+                if(self.Game.didLosePlayer(OpponentPlayer)):
+                    print("%s Won!" % CurrentPlayer.getName())
+                    break
+            else:
+                print("Hit: (%s,%s)" % (r,c))
+            PlayerTurn.toggleTurn()
+
     def do_EOF(self,blank):
         '''Finish Well'''
         print("Bye For Now")
@@ -31,19 +71,17 @@ class Battleship(cmd.Cmd):
         self.Game.randomPlacementsPlayer(Player)
     def complete_random(self, text, line, begidx, endidx):
         return self.completePlayerNames(text)
-    def do_battlefield(self,name):
+    def do_battlefield(self,name_show):
         '''Print Battlefield of Player'''
-        Players = self.Game.getPlayers()
-        for player in Players:
-            if player.getName() == name:
-                CurrentPlayer = player
-            else:
-                OtherPlayer = player
-        OtherGrid = self.Game.getGridPlayer(OtherPlayer)
-        self.printGrid(OtherGrid,False)
-        CurrentGrid = self.Game.getGridPlayer(CurrentPlayer)
-        print("-" * 31)
-        self.printGrid(CurrentGrid,True)
+        args = name_show.split(" ")
+        name = args[0]
+        if len(args) == 2:
+            show = True
+        else:
+            show = False
+        player = self.Game.getPlayerByName(name)
+        grid = self.Game.getGridPlayer(player)
+        self.printGrid(grid,show)
     def complete_battlefield(self, text, line, begidx, endidx):
         return self.completePlayerNames(text)
     def printGrid(self,grid,showShips = False):
