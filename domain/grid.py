@@ -85,6 +85,9 @@ class Cell:
     def getShipType(self):
         return self.ShipType
 
+    def shot(self):
+        self.shotAt = True
+
     def __eq__(self,Other):
         return (self.isMiss() == Other.isMiss()
            and self.isHit() == Other.isHit()

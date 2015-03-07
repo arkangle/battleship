@@ -39,6 +39,9 @@ class Game:
         Battlefield = player.getBattlefield()
         return Battlefield.fire(C)
 
+    def getCoordinate(self,x,y):
+        return Coordinate(x,y)
+
     def didLosePlayer(self,player):
         Battlefield = player.getBattlefield()
         return Battlefield.areAllSunk()
