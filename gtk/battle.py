@@ -122,7 +122,7 @@ class Button(Gtk.Button):
             self.set_label("Miss")
             self.set_relief(Gtk.ReliefStyle.NONE)
         else:
-            self.set_label("????")
+            self.set_label("        ")
 
     def shot(self):
         self.cell.shot()
