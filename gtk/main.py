@@ -46,7 +46,9 @@ class BattleshipWindow(Gtk.Window):
                 button = BattleshipButton(y,x)
                 button.connect("clicked",self.onFireAction)
                 grid.attach(button,x,y,1,1)
-        main_box.add(grid)
+        grid_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        grid_box.add(grid)
+        main_box.add(grid_box)
 
     def onFireAction(self,Button):
         location = Button.getLocation()
