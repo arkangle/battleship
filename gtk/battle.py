@@ -78,6 +78,8 @@ class Window(Gtk.Window):
             Player = self.game.getPlayerTurn().getCurrentPlayer()
             Opponent = self.game.getPlayerTurn().getOpponentPlayer()
             ship = self.game.fireAtPlayer(Opponent,coordinate.getRow(),coordinate.getColumn())
+            Button.shot()
+            Button.setStatus()
             if(ship == None):
                 txt = "%s Fired at: (%s,%s) and was a Miss!" % (Player.getName(),coordinate.getRow(),coordinate.getColumn())
             else:
@@ -93,8 +95,6 @@ class Window(Gtk.Window):
                 else:
                     txt = "%s Fired at: (%s,%s) and was a Hit!" % (Player.getName(),coordinate.getRow(),coordinate.getColumn())
             self.action_label.set_label(txt)
-            Button.shot()
-            Button.setStatus()
             self.changeTurn()
     def changeTurn(self):
         self.game.getPlayerTurn().toggleTurn()
