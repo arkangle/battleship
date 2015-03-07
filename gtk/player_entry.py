@@ -48,6 +48,10 @@ class Window(Gtk.Window):
         win.buildMain()
         win.connect("delete-event", self.returnWindow)
         win.show_all()
+        win.hide()
+        win.unrealize()
+        win.changeTurn()
+        win.show()
         self.hide()
 
     def returnWindow(self,window,arg):

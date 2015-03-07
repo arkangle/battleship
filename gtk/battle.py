@@ -6,7 +6,7 @@ class Window(Gtk.Window):
     def __init__(self,player1,player2):
         Gtk.Window.__init__(self, title="Battleship")
         self.set_border_width(10)
-        self.set_default_size(540,480)
+        self.set_default_size(540,380)
         header = Gtk.HeaderBar()
         header.set_show_close_button(True)
         header.props.title = "Battleship"
@@ -16,9 +16,6 @@ class Window(Gtk.Window):
     def setupGame(self,player1,player2):
         self.game = Game.StartByName(player1,player2)
         self.game.getPlayerTurn().randomTurn()
-        players = self.game.getPlayers()
-        self.game.randomPlacementsPlayer(players[0])
-        self.game.randomPlacementsPlayer(players[1])
 
     def buildPlayerBox(self):
         players = self.game.getPlayers()
@@ -30,24 +27,29 @@ class Window(Gtk.Window):
         return players_box
 
     def buildMain(self):
-
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         players_box = self.buildPlayerBox()    
         main_box.add(players_box)
 
+        self.turn_label = Gtk.Label("")
+        main_box.add(self.turn_label)
         self.action_label = Gtk.Label("Start Game")
         main_box.add(self.action_label)
-        
-        OpponentGameGrid = self.game.getGridPlayer(self.game.getPlayerTurn().getOpponentPlayer())
-        grid = self.buildFireGrid(OpponentGameGrid)
-        main_box.add(grid)
+
+        self.grids = [Gtk.Grid(column_spacing=2,row_spacing=2,halign=Gtk.Align.CENTER),
+                      Gtk.Grid(column_spacing=2,row_spacing=2,halign=Gtk.Align.CENTER)]
+        Players = self.game.getPlayers()
+
+        self.buildFireGrid(self.grids[0],Players[0])
+        main_box.add(self.grids[0])
+        self.buildFireGrid(self.grids[1],Players[1])
+        main_box.add(self.grids[1])
+
         self.add(main_box)
 
-    def buildFireGrid(self,GameGrid):
-        grid = Gtk.Grid()
-        grid.set_column_spacing(2)
-        grid.set_row_spacing(2)
-        grid.set_halign(Gtk.Align.CENTER)
+    def buildFireGrid(self,grid,player):
+        self.game.randomPlacementsPlayer(player)
+        GameGrid = self.game.getGridPlayer(player)
         grid.attach(Gtk.Label(""),0,0,1,1)
         x = 1
         for c in GameGrid.getColumnLabels():
@@ -64,7 +66,7 @@ class Window(Gtk.Window):
                 grid.attach(button,x,y,1,1)
                 x += 1
             y += 1
-        return grid
+        grid.hide()
 
 
     def onFireAction(self,Button):
@@ -83,12 +85,24 @@ class Window(Gtk.Window):
                     txt = "%s Fired at: (%s,%s) " % (Player.getName(),coordinate.getRow(),coordinate.getColumn())
                     txt = txt + "and sunk %s's %s" % (Opponent.getName(),ship.getType().getName())
                     if(self.game.didLosePlayer(Opponent)):
-                        txt = txt + " and won!"
+                        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "%s Won!!" % Player.getName())
+                        dialog.format_secondary_text( "%s Won! Congrats!!" % Player.getName())
+                        dialog.run()
+                        dialog.destroy()
+                        self.emit("delete-event",None)
                 else:
                     txt = "%s Fired at: (%s,%s) and was a Hit!" % (Player.getName(),coordinate.getRow(),coordinate.getColumn())
             self.action_label.set_label(txt)
             Button.shot()
             Button.setStatus()
+            self.changeTurn()
+    def changeTurn(self):
+        self.game.getPlayerTurn().toggleTurn()
+        Player = self.game.getPlayerTurn().getCurrentPlayer()
+        self.turn_label.set_label("%s's Turn" % Player.getName())
+        Turn = self.game.getPlayerTurn()
+        self.grids[Turn.turn].hide()
+        self.grids[Turn.toggleBoolean(Turn.turn)].show()
 
 class Button(Gtk.Button):
     def __init__(self,coordinate,cell):
