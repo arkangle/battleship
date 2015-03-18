@@ -1,5 +1,5 @@
 from gi.repository import Gtk
-import gtk.battle
+import gui.battle
 
 class Window(Gtk.Window):
     def __init__(self):
@@ -44,7 +44,7 @@ class Window(Gtk.Window):
             self.startBattle(self.player1_entry.get_text(),self.player2_entry.get_text())
 
     def startBattle(self,player1,player2):
-        win = gtk.battle.Window(player1,player2)
+        win = gui.battle.Window(player1,player2)
         win.buildMain()
         win.connect("delete-event", self.returnWindow)
         win.show_all()
